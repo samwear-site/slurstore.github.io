@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><store_name> - Checkout</title>
+    <title>
+        <store_name> - Checkout
+    </title>
     <link rel="stylesheet" href="css/general-style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
 </head>
+
 <body>
     <!-- Header Section -->
     <header>
-        <div class="logo"><store_name></div>
+        <div class="logo">
+            <store_name>
+        </div>
         <nav>
             <a href="index.html">Home</a>
             <a href="products.html">Products</a>
@@ -20,20 +28,47 @@
     </header>
 
     <!-- Checkout Section -->
-    <div class="container checkout-container">
-        <h2>Checkout</h2>
-        <div class="checkout-item">
-            <p>Product 1</p>
-            <p>$49.99</p>
-        </div>
-        <div class="checkout-item">
-            <p>Product 2</p>
-            <p>$29.99</p>
-        </div>
-        <div class="total-price">
-            <p>Total: $79.98</p>
-        </div>
-        <button>Proceed to Payment</button>
+    <div class="form-container">
+        <section class="contact-section">
+            
+            <div class="container">
+                <h2>Buy Now</h2>
+
+                <form id="contact-form" onsubmit="sendEmail(event)">
+                    <div class="form-group"><label for="name">Name</label>
+                    <input type="text" id="name" name="user_name" placeholder="Enter your name" required>
+                    </div>
+
+                    <div class="form-group"><label for="email">Email</label>
+                    <input type="email" id="email" name="user_email" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group"><label for="pid">Product Id</label>
+                    <input type="text" id="pid" name="pid" placeholder="Enter product Id" required>
+                    </div>
+
+                    <div class="form-group"><label for="qty">Quantity</label>
+                    <input type="number" id="qty" name="qty" placeholder="Enter Quantity" required>
+                    </div>
+
+                    <div class="form-group"><label for="address">Delivery location</label>
+                    <input type="text" id="address" name="address" placeholder="Enter your Address" required>
+                    </div>
+
+                    <div class="form-group"><label for="phn">Contact</label>
+                    <input type="number" id="phn" name="phn" placeholder="Enter your contact number" required>
+                    </div>
+
+                    <div class="form-group"><label for="message">Any message?</label>
+                    <textarea id="message" name="message" placeholder="Your thought" rows="4"></textarea>
+                    </div>
+
+                    <button type="submit" class="cta-button">Submit</button>
+                    <div id="response-message"></div>
+                </form>
+            </div>
+        </section>
+
     </div>
 
     <!-- Footer Section -->
@@ -45,5 +80,48 @@
         </div>
         <p>&copy; 2025 <store_name>. All rights reserved.</p>
     </footer>
+    <script>
+        // Initialize EmailJS
+        (function () {
+            emailjs.init("vyVmmXMOkzqrkUi2Y"); // Replace with your EmailJS User ID
+        })();
+
+        // Handle form submission
+        function sendEmail(event) {
+            
+            event.preventDefault(); // Prevent default form submission
+
+            var form = document.getElementById('contact-form');
+            var name = form['user_name'].value;
+            var email = form['user_email'].value;
+            var pid = form['pid'].value;
+            var qty = form['qty'].value;
+            var address = form['address'].value;
+            var phn = form['phn'].value;
+            var message = form['message'].value;
+
+            // Send the email via EmailJS
+            var templateParams = {
+                user_name: name,            // Name of the person submitting the form
+                user_email: email,          // Email of the person submitting the form
+                pid: pid,
+                qty: qty,
+                address: address,
+                phn: phn,
+                message: message            // The message content
+            };
+            
+            emailjs.send('service_jn5cpwh', 'template_i1vkvwl', templateParams)
+                .then(function (response) {
+                    console.log("Success", response);
+                    document.getElementById("response-message").innerHTML = "<p>Thank you! Your message has been sent.</p>";
+                    form.reset(); // Reset the form fields
+                }, function (error) {
+                    console.log("Failed", error);
+                    document.getElementById("response-message").innerHTML = "<p>Oops! Something went wrong. Please try again later.</p>";
+                });
+        }
+    </script>
 </body>
+
 </html>

@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Contact - <store_name></title>
+    <title>Contact - <store_name>
+    </title>
     <link rel="stylesheet" href="css/general-style.css">
     <!-- Include EmailJS SDK -->
-    <script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-</script>
-<script type="text/javascript">
-   (function(){
-      emailjs.init({
-        publicKey: "vyVmmXMOkzqrkUi2Y",
-      });
-   })();
-</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
 </head>
+
 <body>
     <!-- Header Section -->
     <header>
-        <div class="logo"><store_name></div>
+        <div class="logo">
+            <store_name>
+        </div>
         <nav>
             <a href="index.html">Home</a>
             <a href="products.html">Products</a>
@@ -66,7 +63,7 @@
 
     <script>
         // Initialize EmailJS
-        (function() {
+        (function () {
             emailjs.init("vyVmmXMOkzqrkUi2Y"); // Replace with your EmailJS User ID
         })();
 
@@ -85,17 +82,17 @@
                 user_email: email,          // Email of the person submitting the form
                 message: message            // The message content
             };
-            console.log(templateParams)
             emailjs.send('service_jn5cpwh', 'template_cutewmc', templateParams)
-                .then(function(response) {
+                .then(function (response) {
                     console.log("Success", response);
                     document.getElementById("response-message").innerHTML = "<p>Thank you! Your message has been sent.</p>";
                     form.reset(); // Reset the form fields
-                }, function(error) {
+                }, function (error) {
                     console.log("Failed", error);
                     document.getElementById("response-message").innerHTML = "<p>Oops! Something went wrong. Please try again later.</p>";
                 });
         }
     </script>
 </body>
+
 </html>
