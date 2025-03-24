@@ -29,7 +29,7 @@
             <form id="contact-form" onsubmit="sendEmail(event)">
                 <div class="form-group">
                     <label for="name">Your Name</label>
-                    <input type="text" id="name" name="user_name" required>
+                    <input type="text" id="name" name="name" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Your Email</label>
@@ -70,8 +70,14 @@
             var email = form['user_email'].value;
             var message = form['message'].value;
 
-            // Send the email
-            emailjs.sendForm("service_71ybrvl", "template_rh9r19s", form)
+            // Send the email via EmailJS
+            var templateParams = {
+                from_name: name,            // Name of the person submitting the form
+                from_email: email,          // Email of the person submitting the form
+                message: message            // The message content
+            };
+            console.log(templateParams)
+            emailjs.send('service_71ybrvl', 'template_rh9r19s', templateParams)
                 .then(function(response) {
                     console.log("Success", response);
                     document.getElementById("response-message").innerHTML = "<p>Thank you! Your message has been sent.</p>";
