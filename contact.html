@@ -7,7 +7,16 @@
     <title>Contact - <store_name></title>
     <link rel="stylesheet" href="css/general-style.css">
     <!-- Include EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: "vyVmmXMOkzqrkUi2Y",
+      });
+   })();
+</script>
 </head>
 <body>
     <!-- Header Section -->
@@ -29,7 +38,7 @@
             <form id="contact-form" onsubmit="sendEmail(event)">
                 <div class="form-group">
                     <label for="name">Your Name</label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" name="user_name" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Your Email</label>
@@ -72,12 +81,12 @@
 
             // Send the email via EmailJS
             var templateParams = {
-                from_name: name,            // Name of the person submitting the form
-                from_email: email,          // Email of the person submitting the form
+                user_name: name,            // Name of the person submitting the form
+                user_email: email,          // Email of the person submitting the form
                 message: message            // The message content
             };
             console.log(templateParams)
-            emailjs.send('service_71ybrvl', 'template_rh9r19s', templateParams)
+            emailjs.send('service_jn5cpwh', 'template_cutewmc', templateParams)
                 .then(function(response) {
                     console.log("Success", response);
                     document.getElementById("response-message").innerHTML = "<p>Thank you! Your message has been sent.</p>";
