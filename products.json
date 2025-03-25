@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "Wireless Headphones",
+        "price": "$50",
+        "image": "images/1.jpg",
+        "description": "High-quality wireless headphones with noise cancellation.",
+        "pid": "sadfhiu564"
+    },
+    {
+        "id": 2,
+        "name": "Smart Watch",
+        "price": "$120",
+        "image": "images/2.jpg",
+        "description": "A sleek smart watch with fitness tracking features.",
+        "pid": "fdsfsfa87"
+    },
+    {
+        "id": 3,
+        "name": "Gaming Mouse",
+        "price": "$35",
+        "image": "images/3.jpg",
+        "description": "Ergonomic gaming mouse with RGB lighting.",
+        "pid": "sdafafsdsaf74"
+    }
+]
