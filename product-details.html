@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><store_name> - Product Details</title>
+    <title>swear - Product Details</title>
     <link rel="stylesheet" href="css/general-style.css">
 </head>
 <body>
@@ -20,27 +20,56 @@
     </header>
 
     <!-- Product Details Section -->
-    <div class="container product-details-container">
-        <div class="product-image">
-            <img src="images/1.jpg" alt="Product 1">
-        </div>
-        <div class="product-info">
-            <h1>Product 1</h1>
-            <p class="price">$49.99</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor ex id purus interdum, sit amet ullamcorper lorem gravida.</p>
-            <div class="cta-buttons">
-                <a href="checkout.html" class="cta-button">Add to Cart</a>
-                <a href="checkout.html" class="cta-button">Buy Now</a>
-            </div>
-        </div>
+    <div class="container product-details-container" id="productDetails">
+        
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get Product ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get("id");
+
+            if (!productId) {
+                document.getElementById("productDetails").innerHTML = "<h2>Product not found!</h2>";
+                return;
+            }
+
+            // Fetch product data
+            fetch("products.json")
+                .then(response => response.json())
+                .then(products => {
+                    const product = products.find(p => p.pid == productId);
+
+                    if (!product) {
+                        document.getElementById("productDetails").innerHTML = "<h2>Product not found!</h2>";
+                        return;
+                    }
+
+                    // Display product details
+                    document.getElementById("productDetails").innerHTML = `
+                            <div class="product-image">
+                                <img src="${product.image}" alt="${product.name}">
+                            </div>
+                            <div class="product-info">
+                                <h1>${product.name}</h1>
+                                <p>Product Id: ${product.pid}</p>
+                                <p>${product.description}</p>
+                                <p class="price">${product.price}</p>
+                                <div class="cta-buttons centre">
+                                    <a href="checkout.html?pid=${product.pid}" class="cta-button">Buy Now</a>
+                                </div>
+                            </div>
+                    `;
+                })
+                .catch(error => console.error("Error loading product:", error));
+        });
+    </script>
 
     <!-- Footer Section -->
     <footer>
         <div class="footer-links">
             <a href="about.html">About</a>
             <a href="contact.html">Contact</a>
-            <a href="terms.html">Terms & Conditions</a>
         </div>
         <p>&copy; 2025 <store_name>. All rights reserved.</p>
     </footer>
